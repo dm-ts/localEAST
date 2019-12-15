@@ -7,13 +7,13 @@ import argparse
 from scapy.all import Ether, IP, TCP, RandIP, RandMAC, sendp
 
 INFO = {}
-INFO['NAME'] = "cam_overflow"
+INFO['NAME'] = "CAM overflow"
 INFO['DESCRIPTION'] = "Overload CAM table on switch"
 INFO['VENDOR'] = "--"
 INFO['CVE Name'] = "--"
 INFO['NOTES'] = """
 """
-INFO['DOWNLOAD_LINK'] = ""
+INFO['DOWNLOAD_LINK'] = "https://github.com/dm-ts/modulesEAST"
 INFO['LINKS'] = [""]
 INFO['CHANGELOG'] = "1.0 14.02.20"
 INFO['PATH'] = "/" #folder on website
