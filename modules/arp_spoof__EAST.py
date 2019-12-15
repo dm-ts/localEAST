@@ -33,7 +33,7 @@ OPTIONS = OrderedDict()
 OPTIONS["HOST1"] = "192.168.", dict(description = 'Target 1')
 OPTIONS["HOST2"] = "192.168.", dict(description = 'Target 2')
 OPTIONS["INTERFACE"] = "eth0", dict(description = 'Interface ID')
-OPTIONS["TIMER"] = 1, dict(description = 'Time of execution')
+OPTIONS["TIMER"] = 1, dict(description = 'Time of execution (minutes)')
 
 class exploit(Sploit):
 	def __init__(self,host1="", host2="",interface="",timer=1,logger=None):
