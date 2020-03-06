@@ -1,1 +1,1 @@
-# moduleEAST
+# modulesEAST
