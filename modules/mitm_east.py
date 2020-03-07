@@ -121,14 +121,14 @@ class exploit(Sploit):
 		#send(IP(src='1.2.3.4',dst=targets[0]),iface=self.interface)
 		#x.join()
 		self.log('[-] Fixing Targets...')
-		for i in range (0,5):
+		for i in range (0,10):
 			try:
 				self.fix(MAC)
 			except Exception as e:
 				self.log("[!] [FAIL] Failed to fix : ")
 				self.log(e)
 				sys.exit(1)
-			pause(1.5)
+			pause(0.5)
 		try:
 			self.log('[*] Disabling IP Fordwarding...')
 			self.disable()
