@@ -20,7 +20,7 @@ INFO['NOTES'] = """
 INFO['DOWNLOAD_LINK'] = ""
 INFO['LINKS'] = [""]
 INFO['CHANGELOG'] = "1.0 30.05.19"
-INFO['PATH'] = "/" #folder on website
+INFO['PATH'] = "Developed/" #folder on website
 INFO['AUTHOR'] = "exploit-db"
 
 OPTIONS = OrderedDict()

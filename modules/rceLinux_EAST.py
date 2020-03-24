@@ -15,7 +15,7 @@ INFO['NOTES'] = """
 INFO['DOWNLOAD_LINK'] = ""
 INFO['LINKS'] = [""]
 INFO['CHANGELOG'] = "1.0 14.02.20"
-INFO['PATH'] = "/" #folder on website
+INFO['PATH'] = "Developed/" #folder on website
 INFO['AUTHOR'] = "dmts"
 
 OPTIONS = OrderedDict()
