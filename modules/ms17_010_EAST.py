@@ -822,7 +822,7 @@ class exploit(Sploit):
 		try:
 			command = '/usr/bin/python /etc/EAST/help/scriptEAST.py {ip} {pipe}'.format(ip=self.host,pipe=self.pipe)
 		except:
-			command = 'python c:\EAST\help\scriptEAST.py {ip} {pipe}'.format(ip=self.host,pipe=self.pipe)
+			command = 'python c:\\EAST\\help\\scriptEAST.py {ip} {pipe}'.format(ip=self.host,pipe=self.pipe)
 		os.system(command)
 		
 		self.log('Done')
