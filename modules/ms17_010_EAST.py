@@ -821,9 +821,10 @@ class exploit(Sploit):
 #		shellcode = s.create_shellcode(shellcode_type,encode="rot_13", make_exe=1,debug=1,filename="payloadEAST")
 		try:
 			command = '/usr/bin/python /etc/EAST/help/scriptEAST.py {ip} {pipe}'.format(ip=self.host,pipe=self.pipe)
+			os.system(command)
 		except:
 			command = 'python c:\\EAST\\help\\scriptEAST.py {ip} {pipe}'.format(ip=self.host,pipe=self.pipe)
-		os.system(command)
+			os.system(command)
 		
 		self.log('Done')
 		self.finish(True)
